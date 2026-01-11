@@ -1,10 +1,8 @@
- <?php
-                         
-// Nom du fichier JSON
+<?php
+
 $fichier = "personnes.json";
 $personnes = [];
 
-// Charger les personnes existantes
 if (file_exists($fichier)) {
     $json = file_get_contents($fichier);
     $personnes = json_decode($json, true) ?? [];
@@ -12,7 +10,6 @@ if (file_exists($fichier)) {
     $personnes = [];
 }
 
-// Vérifier si le formulaire est soumis
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $prenom = trim($_POST['prenom']);
     $nom    = trim($_POST['nom']);
@@ -20,7 +17,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $tel    = trim($_POST['tel']);
 
     if ($prenom && $nom && $adr && $tel) {
-        // Nouvelle personne
         $nouvellePersonne = [
             "prenom" => $prenom,
             "nom"    => $nom,
@@ -28,10 +24,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             "tel"    => $tel
         ];
 
-        // Ajouter au tableau
         $personnes[] = $nouvellePersonne;
 
-        // Sauvegarder dans le fichier JSON
         file_put_contents($fichier, json_encode($personnes, JSON_PRETTY_PRINT));
     }
 }
@@ -46,9 +40,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
      <link rel="stylesheet" href="css/bootstrap.css">
 </head>
 <body>
-<!--
-chaque personne est ajoute dans un fichier apple personnes.json et dans un tableau personnes 
-afficher le tableau personnes dans le table -->
     <h1 class="text-center text-primary">TP Form & Table</h1>
     <div class="container">
         <div class="row">
@@ -116,8 +107,9 @@ if (!empty($personnes)) {
             </div>
         </div>
 
-    </div>
-           
-            
+    </div>           
+
+
+
 </body>
 </html>
